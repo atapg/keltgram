@@ -1,5 +1,5 @@
 import { Avatar, Card,Toolbar, Typography } from '@material-ui/core'
-import {AiFillHeart,AiOutlineHeart} from 'react-icons/ai'
+import {AiFillHeart} from 'react-icons/ai'
 import {FaRegComment} from 'react-icons/fa'
 import {FiSend} from 'react-icons/fi'
 import {BiHeart} from 'react-icons/bi'
