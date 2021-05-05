@@ -29,6 +29,7 @@ function App() {
         <Navbar />
         <div className="posts">
           <Post />
+          <Post />
         </div>
       </ThemeProvider>
     </div>

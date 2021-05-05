@@ -4,10 +4,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 .post__item {
   width: 50vw;
+  margin-bottom: 30px;
 }
 
 .avatar {

@@ -1,9 +1,9 @@
 import React from 'react'
-import {AppBar, Card, Toolbar, Typography} from '@material-ui/core'
+import {Card, Toolbar, Typography} from '@material-ui/core'
 
 const Navbar = () => {
     return (
-        <Card variant="outlined" style={{marginBottom: '100px'}} >
+        <Card variant="outlined" className="navbar__container" >
             <Toolbar>
                 <Typography className="logo" variant="h5" component="h1"><b style={{letterSpacing: '-1px',fontWeight: 'bolder'}}>keLTgram</b></Typography>
             </Toolbar>
