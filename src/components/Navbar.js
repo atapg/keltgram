@@ -1,13 +1,13 @@
 import React from 'react'
-import {AppBar, Toolbar, Typography} from '@material-ui/core'
+import {AppBar, Card, Toolbar, Typography} from '@material-ui/core'
 
 const Navbar = () => {
     return (
-        <AppBar>
-          <Toolbar>
-            <Typography variant="h5" component="h1"><b style={{letterSpacing: '-1px'}}>keLTgram</b></Typography>
-          </Toolbar>
-        </AppBar>
+        <Card variant="outlined" style={{marginBottom: '100px'}} >
+            <Toolbar>
+                <Typography className="logo" variant="h5" component="h1"><b style={{letterSpacing: '-1px',fontWeight: 'bolder'}}>keLTgram</b></Typography>
+            </Toolbar>
+        </Card>
     )
 }
 

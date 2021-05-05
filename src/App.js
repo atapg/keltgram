@@ -1,6 +1,8 @@
 import './App.scss'
+import './style.scss'
 import { createMuiTheme,ThemeProvider} from '@material-ui/core'
 import Navbar from './components/Navbar'
+import Post from './components/Post'
 
 const theme = createMuiTheme({
   palette:{
@@ -25,6 +27,9 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <Navbar />
+        <div className="posts">
+          <Post />
+        </div>
       </ThemeProvider>
     </div>
   )
