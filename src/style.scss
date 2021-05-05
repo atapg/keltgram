@@ -135,3 +135,25 @@
     cursor: pointer;
   }
 }
+
+.create__post__caption {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 10px;
+  min-height: 100px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  resize: none;
+}
+
+.upload {
+  display: none;
+}
+.action__container {
+  padding: 5px 10px;
+  .send__actions {
+    font-size: 20px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+}
