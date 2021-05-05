@@ -1,20 +1,55 @@
 import React,{ useState } from 'react'
 import { Button, Card, TextField, Typography } from '@material-ui/core'
+import { auth } from '../firebase'
+import { useStateValue } from '../store/StateProvider'
 
-const Login = ({loginBtn}) => {
+const Login = ({loginBtn, getUsername}) => {
     const [acc, setAcc] = useState(false)
-    const [data, setData] = useState({})
+    const [data, setData] = useState({email:'', username:'', password:''})
+    const [{}, dispatch] = useStateValue()
 
-    const btnHandler = () => {
+    const btnHandler = (e) => {
+        e.preventDefault()
+
         if(acc === true){
-            //login
+            auth
+                .signInWithEmailAndPassword(data.email, data.password)
+                .then(authUser => {
+                    dispatch({
+                        type: "LOGIN",
+                        item: authUser
+                    })
+                    console.log(authUser)
+                })
+                .then(() => {
+                    loginBtn()
+                })
+                .catch(error => alert(error.message))
         } else {
-            //sign up
+            auth
+                .createUserWithEmailAndPassword(data.email, data.password)
+                .then(authUser => {
+                    authUser.user.updateProfile({
+                        displayName: data.username
+                    })
+                    dispatch({
+                        type: "LOGIN",
+                        item: authUser
+                    })
+                })
+                .then(() => {
+                    loginBtn()
+                })
+                .catch(err => alert(err.message))
+                getUsername(data.username)
         }
     }
 
-    const dataHandler = () => {
-
+    const dataHandler = (e) => {
+        setData(prevData => ({
+            ...prevData,
+            [e.target.name]: e.target.value
+        }))
     }
 
     return (
@@ -24,11 +59,11 @@ const Login = ({loginBtn}) => {
                     <>
                         <Typography className="login__logo" component="h2">Login</Typography>
                         <div className="form__container center">
-                            <TextField onChange={{}} className="textfield" id="username-login" label="Username" />
-                            <TextField className="textfield" id="password-login" label="Password" />
+                            <TextField name="email" onChange={e => dataHandler(e)} value={data.email} className="textfield" id="email-login" label="Email" />
+                            <TextField name="password" onChange={e => dataHandler(e)} value={data.password} className="textfield" id="password-login" label="Password" />
                         </div>
                         <Button onClick={btnHandler} variant="contained" color="secondary">
-                            Sign In
+                            Login
                         </Button>
                         <Typography onClick={() => setAcc(oldAcc => !oldAcc)} className="have__account" component="a">Don't Have an Account?</Typography>   
                     </>
@@ -36,8 +71,9 @@ const Login = ({loginBtn}) => {
                     <>
                         <Typography className="login__logo" component="h2">Sign Up</Typography>
                         <div className="form__container center">
-                            <TextField className="textfield" id="username-signup" label="Username" />
-                            <TextField className="textfield" id="password-signup" label="Password" />
+                            <TextField name="username" onChange={e => dataHandler(e)} value={data.username} className="textfield" id="username-signup" label="Username" />
+                            <TextField name="email" onChange={e => dataHandler(e)} value={data.email} className="textfield" id="email-signup" label="Email" />
+                            <TextField name="password" onChange={e => dataHandler(e)} value={data.password} className="textfield" id="password-signup" label="Password" />
                         </div>
                         <Button onClick={btnHandler} variant="contained" color="secondary">
                             Sign Up

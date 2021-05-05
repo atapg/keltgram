@@ -4,8 +4,9 @@ import './style.scss'
 import { createMuiTheme,ThemeProvider} from '@material-ui/core'
 import Navbar from './components/Navbar'
 import Post from './components/Post'
-import { db } from './firebase'
+import { auth, db } from './firebase'
 import Login from './components/Login'
+import { useStateValue } from './store/StateProvider'
 
 const theme = createMuiTheme({
   palette:{
@@ -28,9 +29,15 @@ const theme = createMuiTheme({
 function App() {
   const [posts, setPosts] = useState([])
   const [show, setShow] = useState(false)
+  const [username, setUsername] = useState('')
+  const [{person}, dispatch] = useStateValue()
 
   const loginBtn = () => {
       setShow(prevShow => !prevShow)
+  }
+
+  const getUsername = (username) => {
+    setUsername(oldUsername => oldUsername = username)
   }
 
   useEffect(() => {
@@ -42,6 +49,25 @@ function App() {
     })
   },[])
 
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(authUser => {
+      if(authUser){
+        dispatch({
+          type: "LOGIN",
+          item: authUser
+        })
+      } else {
+        dispatch({
+          type: "LOGIN",
+          item: null
+        })
+      }
+    })
+    return () => {
+      unsubscribe()
+    }
+  },[username])
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
@@ -51,7 +77,7 @@ function App() {
             <Post key={id} item={post} />
           ))}
         </div>
-        {show && <Login loginBtn={loginBtn} />}
+        {show && <Login getUsername={getUsername} loginBtn={loginBtn} />}
       </ThemeProvider>
     </div>
   )
