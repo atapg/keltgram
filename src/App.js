@@ -7,6 +7,7 @@ import Post from './components/Post'
 import { auth, db } from './firebase'
 import Login from './components/Login'
 import { useStateValue } from './store/StateProvider'
+import ImageUpload from './components/ImageUpload'
 
 const theme = createMuiTheme({
   palette:{
@@ -72,6 +73,7 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <Navbar loginBtn={loginBtn} />
+        {person?.displayName && <ImageUpload username={person.displayName} email={person.email} />}
         <div className="posts">
           {posts.map(({id, post}) => (
             <Post key={id} item={post} />
