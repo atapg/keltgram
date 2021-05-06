@@ -136,28 +136,53 @@
   }
 }
 
-.create__post__caption {
-  width: 100%;
-  border: 0;
-  outline: 0;
-  padding: 10px;
-  min-height: 100px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  resize: none;
+.text__area {
+  position: relative;
+  .create__post__caption {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    padding: 10px;
+    min-height: 100px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    resize: none;
+  }
+
+  .progress__bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 }
 
 .upload {
   display: none;
 }
+
 .action__container {
   padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
   .send__actions {
     font-size: 20px;
     cursor: pointer;
-    margin-right: 10px;
+  }
+
+  .upload__container {
+    p {
+      margin-left: 5px;
+      font-size: 0.8rem;
+    }
   }
 }
 
 .prof__avatar {
   cursor: pointer;
+}
+
+.menu__prof {
+  margin-top: 40px;
 }

@@ -11,7 +11,7 @@ const ImageUpload = ({username, email}) => {
 
     const changeHandler = e => {
         if(e.target.files[0]){
-            setImage(oldImg => oldImg = e.target.files[0])
+            setImage(e.target.files[0])
         }
     }
 
@@ -47,22 +47,23 @@ const ImageUpload = ({username, email}) => {
                         })
                 }
             )
+        } else {
+            alert('Please select an image and write somthing about it !!!')
         }
     }
 
     return (
         <div className="posts">
             <Card className="post__item" variant="outlined">
-                <textarea className="create__post__caption" type="text" placeholder="What's on your mind?"
-                    onChange={e => setCaption(oldCap => oldCap = e.target.value)}
-                    value={caption}
-                />
-                {progress > 0 ? 
-                    <LinearProgress variant="determinate" value={progress} />
-                :
-                    <></>
-                }
-
+                <div className="text__area">
+                    <textarea className="create__post__caption" type="text" placeholder="What's on your mind?"
+                        onChange={e => setCaption(oldCap => oldCap = e.target.value)}
+                        value={caption}
+                    />
+                    {progress > 0 && 
+                        <LinearProgress className="progress__bar" variant="determinate" value={progress} />
+                    }
+                </div>
                 <div className="action__container">
                     <input 
                         type="file" 
@@ -73,8 +74,11 @@ const ImageUpload = ({username, email}) => {
                         accept="image/*"
                         className="upload"
                     />
-                    <label htmlFor="contained-button-file">
-                        <AiOutlineCloudDownload className="send__actions" />
+                    <label className="center upload__container" htmlFor="contained-button-file">
+                        <AiOutlineCloudDownload 
+                            className="send__actions" 
+                        />
+                        {image && <p>{image?.name}</p>}
                     </label>
                     <AiOutlineSend className="send__actions" onClick={uploadHandler} />
                 </div>

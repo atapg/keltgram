@@ -19,7 +19,6 @@ const Login = ({loginBtn, getUsername}) => {
                         type: "LOGIN",
                         item: authUser
                     })
-                    console.log(authUser)
                 })
                 .then(() => {
                     loginBtn()
