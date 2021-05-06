@@ -1,11 +1,52 @@
 import { Avatar, Card,Toolbar, Typography } from '@material-ui/core'
-import {AiFillHeart} from 'react-icons/ai'
+import {AiOutlinePlus} from 'react-icons/ai'
 import {FaRegComment} from 'react-icons/fa'
 import {FiSend} from 'react-icons/fi'
 import {BiHeart} from 'react-icons/bi'
-import React from 'react'
+import React,{useState, useEffect} from 'react'
+import { db } from '../firebase'
+import { useStateValue } from '../store/StateProvider'
+import firebase from 'firebase'
 
-const Post = ({item}) => {
+const Post = ({item, postId}) => {
+    const [comments, setComments] = useState([])
+    const [comment, setComment] = useState('')
+    const [{person}, dispatch] = useStateValue()
+
+    useEffect(() => {
+        let unsubscribe
+
+        if(postId){
+            unsubscribe = db
+                .collection('posts')
+                .doc(postId)
+                .collection('comments')
+                .orderBy('timestamp', 'desc')
+                .onSnapshot(snapShot => {
+                    setComments(snapShot.docs.map(doc => doc.data()))
+                })
+        }
+
+        return () => {
+            unsubscribe()
+        }
+
+    },[postId])
+
+    const postComment = e => {
+        e.preventDefault()
+        if(person){
+            db.collection('posts').doc(postId).collection('comments').add({
+                text: comment,
+                username: person?.displayName,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            setComment('')
+        } else {
+            alert('Please sign in to add comments')
+        }
+    }
+
     return (
         <Card className="post__item" variant="outlined">
             <Toolbar className="row-min post__header">
@@ -25,13 +66,27 @@ const Post = ({item}) => {
                     <Typography className="username desc" component="a">{item.caption}</Typography>
                     <div className="divider" />
                     <div className="comments">
-                        <Typography className="username name" component="a">Username</Typography>
-                        <Typography className="username cmnt" component="a">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam non assumenda voluptatibus maxime quisquam amet molestias atque quod illo soluta.</Typography>
+                        {
+                            comments.map((comment, index) => (
+                                <div key={index}>
+                                {/* ERROR HERE KEY */}
+                                    <Typography className="username name" component="a">{comment.username}</Typography>
+                                    <Typography className="username cmnt" component="a">{comment.text}</Typography>
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
             </Toolbar>
             <div className="comment__container">
-                <input type="text" placeholder="Add a comment"/>
+                <input type="text" onChange={e => setComment(oldComment => oldComment = e.target.value)} value={comment} placeholder="Add a comment..."/>
+                <button
+                    className="send__btn center"
+                    onClick={postComment}
+                    disabled={!comment}
+                >
+                    <AiOutlinePlus/>
+                </button>
             </div>
         </Card>
     )

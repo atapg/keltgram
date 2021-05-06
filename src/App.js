@@ -76,7 +76,7 @@ function App() {
         {person?.displayName && <ImageUpload username={person.displayName} email={person.email} />}
         <div className="posts">
           {posts.map(({id, post}) => (
-            <Post key={id} item={post} />
+            <Post key={id} postId={id} item={post} />
           ))}
         </div>
         {show && <Login getUsername={getUsername} loginBtn={loginBtn} />}

@@ -26,6 +26,7 @@
   padding: 10px !important;
 
   .container {
+    width: 100%;
     .actions {
       margin-bottom: 10px;
       margin-left: -1px;
@@ -54,6 +55,7 @@
     .divider {
       border-bottom: 1px solid rgba(0, 0, 0, 0.12);
       margin: 10px 0;
+      width: 100%;
     }
 
     .comments {
@@ -74,11 +76,26 @@
 .comment__container {
   padding: 10px;
   border-top: 1px solid rgba(0, 0, 0, 0.12);
+  position: relative;
 
   input {
     width: 100%;
     border: 0;
     outline: 0;
+    padding-right: 25px;
+  }
+
+  .send__btn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    cursor: pointer;
+    outline: 0;
+    border: 0;
+    background-color: transparent;
+    color: #000;
   }
 }
 
