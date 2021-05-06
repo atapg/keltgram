@@ -32,6 +32,7 @@ function App() {
   const [show, setShow] = useState(false)
   const [username, setUsername] = useState('')
   const [{person}, dispatch] = useStateValue()
+  const [ranCol, setRanCol] = useState('')
 
   const loginBtn = () => {
       setShow(prevShow => !prevShow)
@@ -57,11 +58,13 @@ function App() {
           type: "LOGIN",
           item: authUser
         })
+        setRanCol(`#${Math.floor(Math.random()*16777215).toString(16)}`)
       } else {
         dispatch({
           type: "LOGIN",
           item: null
         })
+        setRanCol(`#${Math.floor(Math.random()*16777215).toString(16)}`)
       }
     })
     return () => {
@@ -72,11 +75,11 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Navbar loginBtn={loginBtn} />
-        {person?.displayName && <ImageUpload username={person.displayName} email={person.email} />}
+        <Navbar ranCol={ranCol} loginBtn={loginBtn} />
+        {person?.email && <ImageUpload username={person.displayName} email={person.email} />}
         <div className="posts">
           {posts.map(({id, post}) => (
-            <Post key={id} postId={id} item={post} />
+            <Post ranCol={ranCol} key={id} postId={id} item={post} />
           ))}
         </div>
         {show && <Login getUsername={getUsername} loginBtn={loginBtn} />}

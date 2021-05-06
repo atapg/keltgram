@@ -8,7 +8,7 @@ import { db } from '../firebase'
 import { useStateValue } from '../store/StateProvider'
 import firebase from 'firebase'
 
-const Post = ({item, postId}) => {
+const Post = ({item, postId, ranCol}) => {
     const [comments, setComments] = useState([])
     const [comment, setComment] = useState('')
     const [{person}, dispatch] = useStateValue()
@@ -50,7 +50,7 @@ const Post = ({item, postId}) => {
     return (
         <Card className="post__item" variant="outlined">
             <Toolbar className="row-min post__header">
-                <Avatar className="avatar" alt="Remy Sharp" src="https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg" />
+                <Avatar className="avatar" alt="Remy Sharp" style={{backgroundColor: `${ranCol}`}} />
                 <Typography component="a"><b>{item.username}</b></Typography>
             </Toolbar>
             <img className="post__image" src={item.imageUrl} alt="post"/>
@@ -58,7 +58,6 @@ const Post = ({item, postId}) => {
                 <div className="container">
                     <div className="actions">
                         <BiHeart />
-                        {/* <AiFillHeart /> */}
                         <FaRegComment />
                         <FiSend />
                     </div>

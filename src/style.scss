@@ -203,3 +203,15 @@
 .menu__prof {
   margin-top: 40px;
 }
+
+@media screen and(max-width: 750px) {
+  .post__item {
+    width: 70vw;
+  }
+}
+
+@media screen and(max-width: 500px) {
+  .post__item {
+    width: 90vw;
+  }
+}

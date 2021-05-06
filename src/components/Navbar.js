@@ -4,7 +4,7 @@ import {BiLogInCircle, BiLogOutCircle} from 'react-icons/bi'
 import { useStateValue } from '../store/StateProvider'
 import { auth } from '../firebase'
 
-const Navbar = ({ loginBtn }) => {
+const Navbar = ({ loginBtn, ranCol }) => {
     const [{person}, dispatch] = useStateValue()
     const [anchorEl, setAnchorEl] = React.useState(null)
 
@@ -28,8 +28,8 @@ const Navbar = ({ loginBtn }) => {
                         <Avatar 
                             onClick={handleClick}
                             className="prof__avatar"
+                            style={{backgroundColor: `${ranCol}`}}
                         >
-                        {person?.displayName?.substring(0,2).toUpperCase()}
                         </Avatar>
                         <Menu
                             id="simple-menu"
