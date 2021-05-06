@@ -58,8 +58,8 @@ const Login = ({loginBtn, getUsername}) => {
                     <>
                         <Typography className="login__logo" component="h2">Login</Typography>
                         <div className="form__container center">
-                            <TextField name="email" onChange={e => dataHandler(e)} value={data.email} className="textfield" id="email-login" label="Email" />
-                            <TextField name="password" onChange={e => dataHandler(e)} value={data.password} className="textfield" id="password-login" label="Password" />
+                            <TextField name="email" onChange={e => dataHandler(e)} value={data.email} className="textfield" id="email-login" type="text" label="Email" />
+                            <TextField name="password" onChange={e => dataHandler(e)} value={data.password} className="textfield" id="password-login" type="password" label="Password" />
                         </div>
                         <Button onClick={btnHandler} variant="contained" color="secondary">
                             Login
@@ -70,9 +70,9 @@ const Login = ({loginBtn, getUsername}) => {
                     <>
                         <Typography className="login__logo" component="h2">Sign Up</Typography>
                         <div className="form__container center">
-                            <TextField name="username" onChange={e => dataHandler(e)} value={data.username} className="textfield" id="username-signup" label="Username" />
-                            <TextField name="email" onChange={e => dataHandler(e)} value={data.email} className="textfield" id="email-signup" label="Email" />
-                            <TextField name="password" onChange={e => dataHandler(e)} value={data.password} className="textfield" id="password-signup" label="Password" />
+                            <TextField name="username" onChange={e => dataHandler(e)} value={data.username} className="textfield" id="username-signup" type="text" label="Username" />
+                            <TextField name="email" onChange={e => dataHandler(e)} value={data.email} className="textfield" id="email-signup" type="text" label="Email" />
+                            <TextField name="password" onChange={e => dataHandler(e)} value={data.password} className="textfield" id="password-signup" type="password"  label="Password" />
                         </div>
                         <Button onClick={btnHandler} variant="contained" color="secondary">
                             Sign Up

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import './App.scss'
 import './style.scss'
-import { createMuiTheme,ThemeProvider} from '@material-ui/core'
+import { CircularProgress, createMuiTheme,ThemeProvider} from '@material-ui/core'
 import Navbar from './components/Navbar'
 import Post from './components/Post'
 import { auth, db } from './firebase'
@@ -76,13 +76,19 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <Navbar ranCol={ranCol} loginBtn={loginBtn} />
-        {person?.email && <ImageUpload username={person.displayName} email={person.email} />}
-        <div className="posts">
-          {posts.map(({id, post}) => (
-            <Post ranCol={ranCol} key={id} postId={id} item={post} />
-          ))}
-        </div>
-        {show && <Login getUsername={getUsername} loginBtn={loginBtn} />}
+        {posts.length > 0 ? 
+          <>
+            {person?.email && <ImageUpload username={person.displayName} email={person.email} />}
+            <div className="posts">
+              {posts.map(({id, post}) => (
+                <Post ranCol={ranCol} key={id} postId={id} item={post} />
+              ))}
+            </div>
+            {show && <Login getUsername={getUsername} loginBtn={loginBtn} />}
+          </>
+        :
+          <div className="progress__bar center"><CircularProgress className="center spinner" /></div>
+        }
       </ThemeProvider>
     </div>
   )
