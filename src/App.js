@@ -115,7 +115,7 @@ function App() {
 					</>
 				) : (
 					<div className='progress__bar center center'>
-						<CircularProgress className='center spinner' />
+						<CircularProgress className='center spinner centre' />
 					</div>
 				)}
 			</ThemeProvider>
